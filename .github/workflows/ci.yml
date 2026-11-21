@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: Build
+        run: dotnet build -c Release
+
+      - name: Test (net8.0 and net9.0)
+        run: dotnet test tests/TestingBot.Tunnel.Tests -c Release --no-build
+
+      - name: Test against the netstandard2.0 build
+        run: dotnet test tests/TestingBot.Tunnel.Tests -c Release -f net8.0 -p:TestNetStandard=true
+
+      - name: Pack
+        if: matrix.os == 'ubuntu-latest'
+        run: dotnet pack src/TestingBot.Tunnel -c Release -o artifacts
+
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          name: packages
+          path: artifacts/

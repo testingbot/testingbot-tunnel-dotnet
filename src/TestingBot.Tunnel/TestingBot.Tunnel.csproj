@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>TestingBot</RootNamespace>
+    <AssemblyName>TestingBot.Tunnel</AssemblyName>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <PackageId>TestingBot.Tunnel</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>TestingBot</Authors>
+    <Company>TestingBot</Company>
+    <Copyright>Copyright (c) TestingBot</Copyright>
+    <Description>Download and launch TestingBot Tunnel from .NET tests: test websites on your machine or private network with Selenium, Appium and Playwright on TestingBot.</Description>
+    <PackageTags>testingbot;tunnel;selenium;appium;testing;automation;cloud;browser-testing</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://testingbot.com/support/tunnel</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/testingbot/testingbot-tunnel-dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>https://github.com/testingbot/testingbot-tunnel-dotnet/blob/main/CHANGELOG.md</PackageReleaseNotes>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+    <InternalsVisibleTo Include="TestingBot.Tunnel.Tests" />
+  </ItemGroup>
+
+</Project>

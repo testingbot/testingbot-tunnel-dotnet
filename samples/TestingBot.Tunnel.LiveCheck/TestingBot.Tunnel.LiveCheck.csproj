@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    A real end-to-end check: starts TestingBot Tunnel, serves a page on this machine, opens it in a
+    remote browser on TestingBot through the tunnel and checks its title. Needs TestingBot credentials
+    (TB_KEY/TB_SECRET, TESTINGBOT_KEY/TESTINGBOT_SECRET or ~/.testingbot). Not run in CI,
+    see the README for how to run it.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="4.35.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/TestingBot.Tunnel/TestingBot.Tunnel.csproj" />
+  </ItemGroup>
+
+</Project>
